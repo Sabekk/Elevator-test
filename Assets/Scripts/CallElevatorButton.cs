@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class CallElevatorButton : MonoBehaviour
 {
+    public int buttonCallId;
     private void OnMouseDown()
     {
 
-        EventClass.OpenFloorDoor?.Invoke();
+        EventClass.OpenFloorDoor?.Invoke(buttonCallId);
+        EventClass.OnepElevatorDoor?.Invoke();
     }
 
 }

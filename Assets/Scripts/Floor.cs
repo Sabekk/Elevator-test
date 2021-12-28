@@ -22,8 +22,9 @@ public class Floor : MonoBehaviour
         //OpenFloorDoor -= OnClickCallElevatorButton;
     }
 
-    public void OnClickCallElevatorButton()
+    public void OnClickCallElevatorButton(int doorId)
     {
+        if(floorLevel == doorId)
         floorAnimator.SetBool("OpenDoor", true);
     }
 
