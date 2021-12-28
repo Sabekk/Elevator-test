@@ -480,6 +480,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 192356632}
+  - component: {fileID: 192356634}
+  - component: {fileID: 192356633}
   m_Layer: 0
   m_Name: Ground
   m_TagString: Untagged
@@ -506,6 +508,39 @@ Transform:
   m_Father: {fileID: 1305453274}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &192356633
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 192356631}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 063b8302cfc834a448ce3c68b6a78134, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &192356634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 192356631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bdae8bddf1ec60468cdf651df7ec156, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floorLevel: 0
+  floorAnimator: {fileID: 192356633}
 --- !u!1 &212519213
 GameObject:
   m_ObjectHideFlags: 0
@@ -1193,6 +1228,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 414413841}
+  - component: {fileID: 414413842}
   m_Layer: 0
   m_Name: ElevatorButton
   m_TagString: Untagged
@@ -1215,6 +1251,19 @@ Transform:
   m_Father: {fileID: 192356632}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &414413842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 414413840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0233ddd18b3984443a995eff71c9c4df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floorLevel: 0
 --- !u!1 &474580105
 GameObject:
   m_ObjectHideFlags: 0
@@ -1827,7 +1876,7 @@ GameObject:
   - component: {fileID: 620073378}
   - component: {fileID: 620073377}
   m_Layer: 0
-  m_Name: Button0 (2)
+  m_Name: Button2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1923,7 +1972,7 @@ GameObject:
   - component: {fileID: 627999929}
   - component: {fileID: 627999928}
   m_Layer: 0
-  m_Name: Button0 (1)
+  m_Name: Button1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2802,6 +2851,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 871184180}
+  - component: {fileID: 871184181}
   m_Layer: 0
   m_Name: Elevator
   m_TagString: Untagged
@@ -2827,6 +2877,25 @@ Transform:
   m_Father: {fileID: 1378441517}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &871184181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 871184179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63a2d313d7bda4e4dbcccab45e278f49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actualFloorColor: {r: 0.08627451, g: 0.84313726, b: 0, a: 1}
+  standardColor: {r: 1, g: 0.43529412, b: 0.4, a: 1}
+  buttons:
+  - {fileID: 753826455}
+  - {fileID: 627999926}
+  - {fileID: 620073375}
+  - {fileID: 879961668}
 --- !u!1 &872136293
 GameObject:
   m_ObjectHideFlags: 0
@@ -2935,7 +3004,7 @@ GameObject:
   - component: {fileID: 879961671}
   - component: {fileID: 879961670}
   m_Layer: 0
-  m_Name: Button0 (3)
+  m_Name: Button3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4462,6 +4531,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1378441517}
+  - component: {fileID: 1378441518}
   m_Layer: 0
   m_Name: Building
   m_TagString: Untagged
@@ -4485,6 +4555,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1378441518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1378441516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c08f14038ee2674fb3940e8b14ea6aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  elevatorButtons: []
 --- !u!1 &1404546446
 GameObject:
   m_ObjectHideFlags: 0
