@@ -4,45 +4,41 @@ using UnityEngine;
 
 public class Building : MonoBehaviour
 {
-    public int actualFloor;
     public List<Floor> floors = new List<Floor>();
+    public GameObject elevator;
 
     private void Start()
     {
-        EventClass.OpenFloorDoor += OnClickOpenElevator;
-        EventClass.CloseFloorDoor += OnClickCloseElevator;
-        EventClass.SetActualFloorLevel += UpdateActualFloorLevel;
-        actualFloor = 0;
+        EventClass.MoveElevator += MoveElevatorToOtherLevel;
     }
     private void OnDestroy()
     {
-        EventClass.OpenFloorDoor += OnClickOpenElevator;
-        EventClass.CloseFloorDoor += OnClickCloseElevator;
-        EventClass.SetActualFloorLevel -= UpdateActualFloorLevel;
+        EventClass.MoveElevator -= MoveElevatorToOtherLevel;
     }
 
-
-
-    public void UpdateActualFloorLevel(int id)
+    public void MoveElevatorToOtherLevel(int floorId)
     {
-        floors[actualFloor].OnClickCloseElevator();
-        actualFloor = id;
+        StartCoroutine(MoveElevator(floorId));
+        
     }
 
-    public void OnClickOpenElevator(int floorId)
+    IEnumerator MoveElevator(int floorId)
     {
-        if(actualFloor== floorId)
+        bool isMoving = true;
+        float upTmp = 0.4f * Time.deltaTime;
+
+        while (isMoving)
         {
-            floors[actualFloor].OnClickOpenElevator();
-        }
-    }
+            elevator.transform.position += transform.up * Time.deltaTime;
+            //elevator.transform.Translate(0, 0.1f, 0);
 
-    public void OnClickCloseElevator(int floorId)
-    {
-        if (actualFloor == floorId)
-        {
-            floors[actualFloor].OnClickCloseElevator();
+            if (floors[floorId].transform.position.y <= elevator.transform.position.y)
+            {
+                isMoving = false;
+            }
+            yield return null;
         }
+        
     }
 
 }

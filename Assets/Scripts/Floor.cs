@@ -11,26 +11,26 @@ public class Floor : MonoBehaviour
 
     private void Start()
     {
-        //EventClass.OpenFloorDoor += OnClickOpenElevator;
-        //EventClass.CloseFloorDoor += OnClickCloseElevator;
+        EventClass.OpenFloorDoor += OnClickOpenElevator;
+        EventClass.CloseFloorDoor += OnClickCloseElevator;
         //OpenFloorDoor += OnClickCallElevatorButton;
     }
     private void OnDestroy()
     {
-        //EventClass.OpenFloorDoor += OnClickOpenElevator;
-        //EventClass.CloseFloorDoor += OnClickCloseElevator;
+        EventClass.OpenFloorDoor += OnClickOpenElevator;
+        EventClass.CloseFloorDoor += OnClickCloseElevator;
         //OpenFloorDoor -= OnClickCallElevatorButton;
     }
 
-    public void OnClickOpenElevator()
+    public void OnClickOpenElevator(int doorId)
     {
-
+        if(floorLevel == doorId)
         floorAnimator.SetBool("OpenDoor", true);
     }
 
-    public void OnClickCloseElevator()
+    public void OnClickCloseElevator(int doorId)
     {
-
+        if (floorLevel == doorId)
             floorAnimator.SetBool("CloseDoor", true);
     }
 

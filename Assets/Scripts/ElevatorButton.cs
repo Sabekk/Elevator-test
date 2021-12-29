@@ -14,9 +14,12 @@ public class ElevatorButton : MonoBehaviour
     {
         if (isActualFloor == false)
         {
-            Debug.Log("isNotActual"+id);
-            EventClass.CloseFloorDoor?.Invoke(id);
-            EventClass.CloseElevatorDoor?.Invoke();
+
+            EventClass.MoveElevator?.Invoke(id);
+
+            //Debug.Log("isNotActual"+id);
+            //EventClass.CloseFloorDoor?.Invoke(id);
+            //EventClass.CloseElevatorDoor?.Invoke();
         }
         else
         {
