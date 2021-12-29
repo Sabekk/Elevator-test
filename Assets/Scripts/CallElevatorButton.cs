@@ -7,9 +7,9 @@ public class CallElevatorButton : MonoBehaviour
     public int buttonCallId;
     private void OnMouseDown()
     {
-
         EventClass.OpenFloorDoor?.Invoke(buttonCallId);
-        EventClass.OnepElevatorDoor?.Invoke();
+        EventClass.OpenElevatorDoor?.Invoke();
+        EventClass.SetActualFloorLevel?.Invoke(buttonCallId);
     }
 
 }

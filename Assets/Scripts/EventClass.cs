@@ -5,6 +5,11 @@ using UnityEngine;
 
 public static class EventClass
 {
-    public static Action <int> OpenFloorDoor;
-    public static Action OnepElevatorDoor;
+    public static Action<int> OpenFloorDoor;
+    public static Action OpenElevatorDoor;
+
+    public static Action<int> CloseFloorDoor;
+    public static Action CloseElevatorDoor;
+
+    public static Action<int> SetActualFloorLevel;
 }
