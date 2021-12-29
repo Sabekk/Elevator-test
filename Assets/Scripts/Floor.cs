@@ -7,49 +7,28 @@ using UnityEngine.EventSystems;
 public class Floor : MonoBehaviour
 {
     public int floorLevel;
-    public bool doorsClosed;
     public Animator floorAnimator;
-
-    public static Action<int> OpenFloorDoor;
-    public static Action<int> CloseFloorDoor;
+    public float height;
 
     private void Start()
     {
-        OpenFloorDoor += OnClickOpenElevator;
-        CloseFloorDoor += OnClickCloseElevator;
-    }
-    private void OnDestroy()
-    {
-        OpenFloorDoor += OnClickOpenElevator;
-        CloseFloorDoor += OnClickCloseElevator;
+        height = this.gameObject.transform.position.y;
     }
 
-    public void OnClickOpenElevator(int doorId)
+    public void CloseDoor()
     {
-        if(floorLevel == doorId)
-        floorAnimator.SetBool("OpenDoor", true);
-    }
-
-    public void OnClickCloseElevator(int doorId)
-    {
-        if (floorLevel == doorId)
-            floorAnimator.SetBool("CloseDoor", true);
-    }
-
-
-    public void SetElevatorDoorsClosed()
-    {
+        floorAnimator.SetBool("CloseDoor", true);
         floorAnimator.SetBool("OpenDoor", false);
+    }
+    public void OpenDoor()
+    {
+        floorAnimator.SetBool("OpenDoor", true);
         floorAnimator.SetBool("CloseDoor", false);
     }
 
-    public void SetDoorsOpen()
+    public void CloseDoorsUntilMoving()
     {
-        doorsClosed = false;
-    }
-    public void SetDoorsClosed()
-    {
-        doorsClosed = true;
+        floorAnimator.SetBool("CloseDoor", false);
     }
 
 }

@@ -9,19 +9,20 @@ public class ElevatorButton : MonoBehaviour
     public bool isActualFloor = false;
 
     public MeshRenderer buttonRenderer;
+    public Elevator elevator;
 
     private void OnMouseDown()
     {
         if (isActualFloor == false)
         {
-
-            Elevator.PrepareElevator?.Invoke(id);
+            //Elevator.PrepareElevator?.Invoke(id);
         }
         else
         {
-            Building.CheckDoorsToOpen?.Invoke(id);
+            //Building.CheckDoorsToOpen?.Invoke(id);
         }
-        Elevator.OnNotReady?.Invoke();
+        //Elevator.OnNotReady?.Invoke();
+        elevator.GoToNextLevel?.Invoke(id);
     }
 
     public void SetActualFloor(bool isActual, Color newButtonColor)

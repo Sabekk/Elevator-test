@@ -5,28 +5,22 @@ using UnityEngine;
 public class CallElevatorButton : MonoBehaviour
 {
     public int buttonCallId;
-    bool canCloseDoor=true;
+    public Elevator elevator;
 
     private void OnMouseDown()
     {
-        
-        if (canCloseDoor == true)
-        {
-            Floor.OpenFloorDoor?.Invoke(buttonCallId);
-            Elevator.OpenElevatorDoor?.Invoke();
-            Elevator.SetActualFloorLevel?.Invoke(buttonCallId);
-            canCloseDoor = false;
-            StartCoroutine(CloseDoor());
-        }
-        
+        //Floor.OpenFloorDoor?.Invoke(buttonCallId);
+        //Elevator.OpenElevatorDoor?.Invoke();
+        //Elevator.SetActualFloorLevel?.Invoke(buttonCallId);
+        elevator.OpenCurretDoors?.Invoke();
+        //StartCoroutine(CloseDoor());
     }
 
     IEnumerator CloseDoor()
     {
         yield return new WaitForSeconds(5f);
-        Floor.CloseFloorDoor?.Invoke(buttonCallId);
-        Elevator.CloseElevatorDoor?.Invoke();
-        canCloseDoor = true;
+        //Floor.CloseFloorDoor?.Invoke(buttonCallId);
+        //Elevator.CloseElevatorDoor?.Invoke();
     }
 
 }

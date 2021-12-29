@@ -638,6 +638,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floorLevel: 0
   floorAnimator: {fileID: 192356633}
+  height: 0
 --- !u!1 &212519213
 GameObject:
   m_ObjectHideFlags: 0
@@ -1353,6 +1354,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floorLevel: 1
   floorAnimator: {fileID: 350421065}
+  height: 0
 --- !u!1 &402212427
 GameObject:
   m_ObjectHideFlags: 0
@@ -1683,6 +1685,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonCallId: 0
+  elevator: {fileID: 871184181}
 --- !u!1 &492287545
 GameObject:
   m_ObjectHideFlags: 0
@@ -2297,6 +2300,7 @@ MonoBehaviour:
   id: 2
   isActualFloor: 0
   buttonRenderer: {fileID: 620073378}
+  elevator: {fileID: 871184181}
 --- !u!1 &627999926
 GameObject:
   m_ObjectHideFlags: 0
@@ -2409,6 +2413,7 @@ MonoBehaviour:
   id: 1
   isActualFloor: 0
   buttonRenderer: {fileID: 627999929}
+  elevator: {fileID: 871184181}
 --- !u!1 &661207228
 GameObject:
   m_ObjectHideFlags: 0
@@ -2959,6 +2964,7 @@ MonoBehaviour:
   id: 0
   isActualFloor: 0
   buttonRenderer: {fileID: 753826458}
+  elevator: {fileID: 871184181}
 --- !u!1 &764820081
 GameObject:
   m_ObjectHideFlags: 0
@@ -3264,12 +3270,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63a2d313d7bda4e4dbcccab45e278f49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  elevatorAnimator: {fileID: 871184182}
+  floors:
+  - {fileID: 192356634}
+  - {fileID: 350421066}
+  - {fileID: 911041446}
+  - {fileID: 1974232901}
   actualFloor: 0
-  doorsClosed: 0
-  isMoving: 0
+  nextFloor: 0
+  isReady: 1
   actualFloorColor: {r: 0.08627451, g: 0.84313726, b: 0, a: 1}
   standardColor: {r: 1, g: 0.43529412, b: 0.4, a: 1}
-  elevatorAnimator: {fileID: 871184182}
   buttons:
   - {fileID: 753826460}
   - {fileID: 627999931}
@@ -3501,6 +3512,7 @@ MonoBehaviour:
   id: 3
   isActualFloor: 0
   buttonRenderer: {fileID: 879961671}
+  elevator: {fileID: 871184181}
 --- !u!1 &881062029
 GameObject:
   m_ObjectHideFlags: 0
@@ -3610,6 +3622,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonCallId: 2
+  elevator: {fileID: 871184181}
 --- !u!1 &911041443
 GameObject:
   m_ObjectHideFlags: 0
@@ -3680,6 +3693,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floorLevel: 2
   floorAnimator: {fileID: 911041445}
+  height: 0
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -5222,12 +5236,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c08f14038ee2674fb3940e8b14ea6aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floors:
-  - {fileID: 192356634}
-  - {fileID: 350421066}
-  - {fileID: 911041446}
-  - {fileID: 1974232901}
-  elevator: {fileID: 871184181}
 --- !u!1 &1396118757
 GameObject:
   m_ObjectHideFlags: 0
@@ -5337,6 +5345,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonCallId: 3
+  elevator: {fileID: 871184181}
 --- !u!1 &1398806970
 GameObject:
   m_ObjectHideFlags: 0
@@ -7295,6 +7304,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floorLevel: 3
   floorAnimator: {fileID: 1974232900}
+  height: 0
 --- !u!1 &2009006855
 GameObject:
   m_ObjectHideFlags: 0
@@ -7699,6 +7709,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonCallId: 1
+  elevator: {fileID: 871184181}
 --- !u!1 &2071835126
 GameObject:
   m_ObjectHideFlags: 0
