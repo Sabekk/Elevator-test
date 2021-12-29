@@ -3265,6 +3265,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actualFloor: 0
+  doorsClosed: 0
+  isMoving: 0
   actualFloorColor: {r: 0.08627451, g: 0.84313726, b: 0, a: 1}
   standardColor: {r: 1, g: 0.43529412, b: 0.4, a: 1}
   elevatorAnimator: {fileID: 871184182}
@@ -5225,7 +5227,7 @@ MonoBehaviour:
   - {fileID: 350421066}
   - {fileID: 911041446}
   - {fileID: 1974232901}
-  elevator: {fileID: 871184179}
+  elevator: {fileID: 871184181}
 --- !u!1 &1396118757
 GameObject:
   m_ObjectHideFlags: 0

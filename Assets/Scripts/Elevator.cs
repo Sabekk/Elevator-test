@@ -6,6 +6,7 @@ public class Elevator : MonoBehaviour
 {
     public int actualFloor;
     public bool doorsClosed;
+    public bool isMoving;
     public Color actualFloorColor;
     public Color standardColor;
 
@@ -32,10 +33,12 @@ public class Elevator : MonoBehaviour
 
     public void OpenElevatorDoors()
     {
-        doorsClosed = false;
-        elevatorAnimator.SetBool("OpenDoor", true);
-        elevatorAnimator.SetBool("CloseDoor", false);
-        
+        if (!isMoving)
+        {
+            doorsClosed = false;
+            elevatorAnimator.SetBool("OpenDoor", true);
+            elevatorAnimator.SetBool("CloseDoor", false);
+        }
     }
 
     public void CloseElevatorDoors()
@@ -47,7 +50,6 @@ public class Elevator : MonoBehaviour
 
     public void SetElevatorDoorsClosed()
     {
-        
         elevatorAnimator.SetBool("OpenDoor", false);
         elevatorAnimator.SetBool("CloseDoor", false);
     }
@@ -62,13 +64,14 @@ public class Elevator : MonoBehaviour
         {
             EventClass.MoveElevator?.Invoke(id);
         }
+        
     }
 
     IEnumerator CloseDoorsAndRun(int id)
     {
         EventClass.CloseElevatorDoor?.Invoke();
-        EventClass.CloseFloorDoor?.Invoke(id);
-        yield return new WaitForSeconds(2f);
+        EventClass.CloseFloorDoor?.Invoke(actualFloor);
+        yield return new WaitForSeconds(4f);
         EventClass.MoveElevator?.Invoke(id);
     }
 
@@ -79,5 +82,7 @@ public class Elevator : MonoBehaviour
         actualFloor = id;
         buttons[actualFloor].SetActualFloor(true, actualFloorColor);
     }
+
+
 
 }

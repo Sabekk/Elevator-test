@@ -17,7 +17,6 @@ public class CallElevatorButton : MonoBehaviour
             EventClass.SetActualFloorLevel?.Invoke(buttonCallId);
             canCloseDoor = false;
             StartCoroutine(CloseDoor());
-
         }
         
     }

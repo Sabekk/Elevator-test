@@ -5,6 +5,8 @@ using UnityEngine;
 
 public static class EventClass
 {
+    public static Action<int> CheckDoorsToOpen;
+
     public static Action<int> OpenFloorDoor;
     public static Action OpenElevatorDoor;
 
