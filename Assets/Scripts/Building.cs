@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,24 +8,23 @@ public class Building : MonoBehaviour
     public List<Floor> floors = new List<Floor>();
     public Elevator elevator;
 
+    public static Action<int> CheckDoorsToOpen;
+
     private void Start()
     {
-        EventClass.MoveElevator += MoveElevatorToOtherLevel;
-        EventClass.CheckDoorsToOpen += OpenCurretDoors;
+        Elevator.MoveElevator += MoveElevatorToOtherLevel;
+        CheckDoorsToOpen += OpenCurretDoors;
     }
     private void OnDestroy()
     {
-        EventClass.MoveElevator -= MoveElevatorToOtherLevel;
-        EventClass.CheckDoorsToOpen -= OpenCurretDoors;
+        Elevator.MoveElevator -= MoveElevatorToOtherLevel;
+        CheckDoorsToOpen -= OpenCurretDoors;
     }
 
     public void MoveElevatorToOtherLevel(int floorId)
     {
-        if (elevator.isMoving == false)
-        {
-            StartCoroutine(MoveElevator(floorId));
-            EventClass.SetActualFloorLevel?.Invoke(floorId);
-        }     
+        StartCoroutine(MoveElevator(floorId));
+        Elevator.SetActualFloorLevel?.Invoke(floorId);
     }
 
     IEnumerator MoveElevator(int floorId)
@@ -66,6 +66,9 @@ public class Building : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
         OpenCurretDoors(floorId);
+
+        elevator.isReady = true;
+
         yield return new WaitForSeconds(5f);
         CloseCurretDoors(floorId);
     }
@@ -80,16 +83,16 @@ public class Building : MonoBehaviour
 
     IEnumerator OpenDoors(int id)
     {
-        EventClass.OpenElevatorDoor?.Invoke();
-        EventClass.OpenFloorDoor?.Invoke(id);
+        Elevator.OpenElevatorDoor?.Invoke();
+        Floor.OpenFloorDoor?.Invoke(id);
         yield return new WaitForSeconds(5f);
         CloseCurretDoors(id);
     }
 
     void CloseCurretDoors(int id)
     {
-        EventClass.CloseElevatorDoor?.Invoke();
-        EventClass.CloseFloorDoor?.Invoke(id);
+        Elevator.CloseElevatorDoor?.Invoke();
+        Floor.CloseFloorDoor?.Invoke(id);
     }
 
 

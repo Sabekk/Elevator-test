@@ -15,13 +15,13 @@ public class ElevatorButton : MonoBehaviour
         if (isActualFloor == false)
         {
 
-            EventClass.PrepareElevator?.Invoke(id);
+            Elevator.PrepareElevator?.Invoke(id);
         }
         else
         {
-            EventClass.CheckDoorsToOpen?.Invoke(id);
+            Building.CheckDoorsToOpen?.Invoke(id);
         }
-        //EventClass.SetActualFloorLevel?.Invoke(id);
+        Elevator.OnNotReady?.Invoke();
     }
 
     public void SetActualFloor(bool isActual, Color newButtonColor)

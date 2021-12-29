@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,10 +6,21 @@ using UnityEngine;
 public class Elevator : MonoBehaviour
 {
     public int actualFloor;
+
     public bool doorsClosed;
     public bool isMoving;
+    public bool isReady;
+
     public Color actualFloorColor;
     public Color standardColor;
+
+    public static Action OnNotReady;
+
+    public static Action OpenElevatorDoor;
+    public static Action CloseElevatorDoor;
+    public static Action<int> PrepareElevator;
+    public static Action<int> MoveElevator;
+    public static Action<int> SetActualFloorLevel;
 
     public Animator elevatorAnimator;
 
@@ -16,26 +28,27 @@ public class Elevator : MonoBehaviour
 
     void Start()
     {
-        EventClass.OpenElevatorDoor += OpenElevatorDoors;
-        EventClass.CloseElevatorDoor += CloseElevatorDoors;
-        EventClass.SetActualFloorLevel += UpdateActualFloorLevel;
-        EventClass.PrepareElevator += PrepareToMove;
+        OpenElevatorDoor += OpenElevatorDoors;
+        CloseElevatorDoor += CloseElevatorDoors;
+        SetActualFloorLevel += UpdateActualFloorLevel;
+        PrepareElevator += PrepareToMove;
+        OnNotReady += IsNotReady;
         actualFloor = 0;
     }
 
     private void OnDestroy()
     {
-        EventClass.OpenElevatorDoor -= OpenElevatorDoors;
-        EventClass.CloseElevatorDoor -= CloseElevatorDoors;
-        EventClass.SetActualFloorLevel -= UpdateActualFloorLevel;
-        EventClass.PrepareElevator -= PrepareToMove;
+        OpenElevatorDoor -= OpenElevatorDoors;
+        CloseElevatorDoor -= CloseElevatorDoors;
+        SetActualFloorLevel -= UpdateActualFloorLevel;
+        PrepareElevator -= PrepareToMove;
+        OnNotReady -= IsNotReady;
     }
 
     public void OpenElevatorDoors()
     {
         if (!isMoving)
         {
-            doorsClosed = false;
             elevatorAnimator.SetBool("OpenDoor", true);
             elevatorAnimator.SetBool("CloseDoor", false);
         }
@@ -43,9 +56,9 @@ public class Elevator : MonoBehaviour
 
     public void CloseElevatorDoors()
     {
-        doorsClosed = true;
         elevatorAnimator.SetBool("OpenDoor", false);
         elevatorAnimator.SetBool("CloseDoor", true);
+        isReady = true;
     }
 
     public void SetElevatorDoorsClosed()
@@ -56,23 +69,22 @@ public class Elevator : MonoBehaviour
 
     public void PrepareToMove(int id)
     {
-        if (doorsClosed == false)
+        if (!isMoving && isReady == true)
         {
             StartCoroutine(CloseDoorsAndRun(id));
         }
-        else
-        {
-            EventClass.MoveElevator?.Invoke(id);
-        }
-        
     }
 
     IEnumerator CloseDoorsAndRun(int id)
     {
-        EventClass.CloseElevatorDoor?.Invoke();
-        EventClass.CloseFloorDoor?.Invoke(actualFloor);
+        if (doorsClosed == false)
+        {
+            CloseElevatorDoor?.Invoke();
+            Floor.CloseFloorDoor?.Invoke(actualFloor);
+        }
+        
         yield return new WaitForSeconds(4f);
-        EventClass.MoveElevator?.Invoke(id);
+        MoveElevator?.Invoke(id);
     }
 
 
@@ -83,6 +95,17 @@ public class Elevator : MonoBehaviour
         buttons[actualFloor].SetActualFloor(true, actualFloorColor);
     }
 
+    public void SetDoorsOpen()
+    {
+        doorsClosed = false;
+    }
+    public void SetDoorsClosed()
+    {
+        doorsClosed = true;
+    }
 
-
+    public void IsNotReady()
+    {
+        isReady = false;
+    }
 }
