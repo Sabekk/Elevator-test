@@ -13,5 +13,6 @@ public static class EventClass
 
     public static Action<int> SetActualFloorLevel;
 
+    public static Action<int> PrepareElevator;
     public static Action<int> MoveElevator;
 }

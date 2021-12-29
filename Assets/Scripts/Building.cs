@@ -19,26 +19,48 @@ public class Building : MonoBehaviour
     public void MoveElevatorToOtherLevel(int floorId)
     {
         StartCoroutine(MoveElevator(floorId));
-        
+
     }
 
     IEnumerator MoveElevator(int floorId)
     {
         bool isMoving = true;
-        float upTmp = 0.4f * Time.deltaTime;
+        bool directionUp;
+
+        float moveSpeed = Time.deltaTime * 2;
+
+        if (floors[floorId].transform.position.y > elevator.transform.position.y + 1)
+        {
+            directionUp = true;
+        }
+        else
+        {
+            directionUp = false;
+        }
 
         while (isMoving)
         {
-            elevator.transform.position += transform.up * Time.deltaTime;
-            //elevator.transform.Translate(0, 0.1f, 0);
+            elevator.transform.position += directionUp ? transform.up * moveSpeed
+                                                        : -transform.up * moveSpeed;
 
-            if (floors[floorId].transform.position.y <= elevator.transform.position.y)
+
+            if (directionUp && floors[floorId].transform.position.y <= elevator.transform.position.y)
+            {
+                isMoving = false;
+            }
+
+            if (!directionUp && floors[floorId].transform.position.y >= elevator.transform.position.y)
             {
                 isMoving = false;
             }
             yield return null;
         }
-        
+
+        yield return new WaitForSeconds(2f);
+        EventClass.OpenElevatorDoor?.Invoke();
+        EventClass.OpenFloorDoor?.Invoke(floorId);
+
+
     }
 
 }

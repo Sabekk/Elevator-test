@@ -15,7 +15,7 @@ public class ElevatorButton : MonoBehaviour
         if (isActualFloor == false)
         {
 
-            EventClass.MoveElevator?.Invoke(id);
+            EventClass.PrepareElevator?.Invoke(id);
 
             //Debug.Log("isNotActual"+id);
             //EventClass.CloseFloorDoor?.Invoke(id);
@@ -23,7 +23,6 @@ public class ElevatorButton : MonoBehaviour
         }
         else
         {
-            Debug.Log("isActual"+id);
             EventClass.OpenFloorDoor?.Invoke(id);
             EventClass.OpenElevatorDoor?.Invoke();
             StartCoroutine(CloseDoors());
@@ -45,7 +44,4 @@ public class ElevatorButton : MonoBehaviour
         isActualFloor = isActual;
         buttonRenderer.materials[0].color = newButtonColor;
     }
-
-
-
 }
