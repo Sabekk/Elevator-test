@@ -601,7 +601,6 @@ Transform:
   - {fileID: 56091579}
   - {fileID: 772294974}
   - {fileID: 414413841}
-  - {fileID: 1398806971}
   m_Father: {fileID: 1305453274}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2754,7 +2753,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 82712217391461128, guid: 2e62f5703e5f8d2488a5e1bc8433be41, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 2e62f5703e5f8d2488a5e1bc8433be41, type: 3}
 --- !u!1 &753705286
 GameObject:
@@ -3255,6 +3255,7 @@ Transform:
   - {fileID: 1261138367}
   - {fileID: 1490586475}
   - {fileID: 1236223863}
+  - {fileID: 1398806971}
   m_Father: {fileID: 1378441517}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3279,6 +3280,7 @@ MonoBehaviour:
   actualFloor: 0
   nextFloor: 0
   isReady: 1
+  doorsClosed: 1
   actualFloorColor: {r: 0.08627451, g: 0.84313726, b: 0, a: 1}
   standardColor: {r: 1, g: 0.43529412, b: 0.4, a: 1}
   buttons:
@@ -5372,12 +5374,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1398806970}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.2, y: 2, z: 3.473}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.07000001, y: 2, z: -1.99}
   m_LocalScale: {x: 4, y: 4, z: 3}
   m_Children: []
-  m_Father: {fileID: 192356632}
-  m_RootOrder: 5
+  m_Father: {fileID: 871184180}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1398806972
 BoxCollider:
@@ -5445,6 +5447,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd245ceb63c801045bb0cc102080acfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  elevator: {fileID: 871184181}
+  playerInPhotocell: 0
 --- !u!1 &1404546446
 GameObject:
   m_ObjectHideFlags: 0

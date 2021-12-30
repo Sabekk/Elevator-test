@@ -52,6 +52,7 @@ public class Elevator : MonoBehaviour
 
     public void GoToLevel(int level)
     {
+        Debug.Log("Test1");
         if ((!isReady) || !CanGoToLevel(level))
         {
             return;
@@ -81,21 +82,23 @@ public class Elevator : MonoBehaviour
 
     IEnumerator ElevatorCycle()
     {
+        Debug.Log("Test2");
         isReady = false;
 
-        if(doorsClosed == false)
+        if (doorsClosed == false)
         {
             yield return CloseDoors();
             yield return new WaitForSeconds(4f);
+            yield return MoveToTargetLevel();
+            yield return OpenDoors();
         }
         else
         {
             yield return new WaitForSeconds(1f);
+            yield return MoveToTargetLevel();
+            yield return OpenDoors();
         }
-        
-        yield return MoveToTargetLevel();
-        yield return OpenDoors();
-        
+
     }
 
     IEnumerator CloseDoors()
@@ -110,7 +113,7 @@ public class Elevator : MonoBehaviour
             elevatorAnimator.SetBool("OpenDoor", false);
             floorsDict[actualFloor].CloseDoor();
         }
-        
+
     }
 
     IEnumerator MoveToTargetLevel()
@@ -147,9 +150,6 @@ public class Elevator : MonoBehaviour
 
             actualFloor = nextFloor;
         }
-
-        //yield return new WaitForSeconds(5f);
-        //CloseDoorsInCurretLevel();
     }
 
     IEnumerator OpenDoors()
@@ -160,9 +160,13 @@ public class Elevator : MonoBehaviour
         OpenCurretDooors();
         yield return new WaitForSeconds(2f);
         isReady = true;
+        Debug.Log("Test4");
 
         yield return new WaitForSeconds(3f);
+
         CloseDoorsInCurretLevel();
+
+
     }
 
     public void OpenCurretDooors()
@@ -179,10 +183,13 @@ public class Elevator : MonoBehaviour
 
     public void OpenDoorsInCurretLevel()
     {
-        doorsClosed = false;
-        floorsDict[actualFloor].OpenDoorsInCurretLevel();
-        elevatorAnimator.SetBool("CloseDoor", false);
-        elevatorAnimator.SetBool("OpenDoor", true);
+        //if (elevatorAnimator.GetBool("EmergencyOpen") == false)
+        //{
+            doorsClosed = false;
+            floorsDict[actualFloor].OpenDoorsInCurretLevel();
+            elevatorAnimator.SetBool("CloseDoor", false);
+            elevatorAnimator.SetBool("OpenDoor", true);
+        //}
     }
 
     public void CloseDoorsInCurretLevel()
@@ -204,20 +211,24 @@ public class Elevator : MonoBehaviour
     {
         if (elevatorAnimator.GetBool("CloseDoor") == true)
         {
-            elevatorAnimator.SetBool("OpenDoor", false);
+            isReady = false;
+            //elevatorAnimator.SetBool("OpenDoor", false);
             elevatorAnimator.SetBool("CloseDoor", false);
-            elevatorAnimator.SetBool("EmergencyOpen", true);
+            elevatorAnimator.SetBool("OpenDoor", true);
 
             floorsDict[actualFloor].EmergencyOpenElevator();
-
             StartCoroutine(StopEmergency());
-        }  
+        }
     }
 
     IEnumerator StopEmergency()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
         elevatorAnimator.SetBool("EmergencyOpen", false);
+        isReady = true;
+        yield return new WaitForSeconds(4f);
+        yield return CloseDoors();
+        
     }
 
 }

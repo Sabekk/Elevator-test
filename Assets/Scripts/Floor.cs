@@ -46,9 +46,9 @@ public class Floor : MonoBehaviour
 
     public void EmergencyOpenElevator()
     {
-        floorAnimator.SetBool("OpenDoor", false);
+        //floorAnimator.SetBool("OpenDoor", false);
         floorAnimator.SetBool("CloseDoor", false);
-        floorAnimator.SetBool("EmergencyOpen", true);
+        floorAnimator.SetBool("OpenDoor", true);
 
         StartCoroutine(StopEmergency());
     }

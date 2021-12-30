@@ -13,15 +13,7 @@ public class ElevatorButton : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (isActualFloor == false)
-        {
-            //Elevator.PrepareElevator?.Invoke(id);
-        }
-        else
-        {
-            //Building.CheckDoorsToOpen?.Invoke(id);
-        }
-        //Elevator.OnNotReady?.Invoke();
+        Debug.Log("Test0");
         elevator.GoToNextLevel?.Invoke(id);
     }
 
