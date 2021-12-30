@@ -14,6 +14,7 @@ public class Elevator : MonoBehaviour
     public int actualFloor;
     public int nextFloor;
     public bool isReady = true;
+    public bool doorsClosed = true;
 
     public Color actualFloorColor;
     public Color standardColor;
@@ -51,12 +52,14 @@ public class Elevator : MonoBehaviour
 
     public void GoToLevel(int level)
     {
-        if (!isReady || !CanGoToLevel(level))
+        if ((!isReady) || !CanGoToLevel(level))
         {
             return;
         }
 
         nextFloor = level;
+        StopAllCoroutines();
+        //elevatorAnimator.Rebind();
 
         StartCoroutine(ElevatorCycle());
     }
@@ -80,11 +83,19 @@ public class Elevator : MonoBehaviour
     {
         isReady = false;
 
-        yield return CloseDoors();
+        if(doorsClosed == false)
+        {
+            yield return CloseDoors();
+            yield return new WaitForSeconds(4f);
+        }
+        else
+        {
+            yield return new WaitForSeconds(1f);
+        }
+        
         yield return MoveToTargetLevel();
         yield return OpenDoors();
-
-        isReady = true;
+        
     }
 
     IEnumerator CloseDoors()
@@ -93,9 +104,13 @@ public class Elevator : MonoBehaviour
         yield return new WaitForSeconds(1);
 
         //door.SetActive(true);
-        elevatorAnimator.SetBool("CloseDoor", true);
-        elevatorAnimator.SetBool("OpenDoor", false);
-        floorsDict[actualFloor].CloseDoor();
+        if (elevatorAnimator.GetBool("CloseDoor") == false)
+        {
+            elevatorAnimator.SetBool("CloseDoor", true);
+            elevatorAnimator.SetBool("OpenDoor", false);
+            floorsDict[actualFloor].CloseDoor();
+        }
+        
     }
 
     IEnumerator MoveToTargetLevel()
@@ -132,26 +147,52 @@ public class Elevator : MonoBehaviour
 
             actualFloor = nextFloor;
         }
+
+        //yield return new WaitForSeconds(5f);
+        //CloseDoorsInCurretLevel();
     }
 
     IEnumerator OpenDoors()
     {
         // Symuluje czas otwierania drzwi
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1f);
 
         OpenCurretDooors();
+        yield return new WaitForSeconds(2f);
+        isReady = true;
+
+        yield return new WaitForSeconds(3f);
+        CloseDoorsInCurretLevel();
     }
 
     public void OpenCurretDooors()
     {
+        
         elevatorAnimator.SetBool("OpenDoor", true);
         elevatorAnimator.SetBool("CloseDoor", false);
         floorsDict[actualFloor].OpenDoor();
     }
 
-    public void CloseDoorsUntilMoving()
+    public void OpenDoorsInCurretLevel()
     {
-        floorsDict[actualFloor].CloseDoorsUntilMoving();
+        doorsClosed = false;
+        floorsDict[actualFloor].OpenDoorsInCurretLevel();
+        elevatorAnimator.SetBool("CloseDoor", false);
+        elevatorAnimator.SetBool("OpenDoor", true);
+    }
+
+    public void CloseDoorsInCurretLevel()
+    {
+        floorsDict[actualFloor].CloseDoorsInCurretLevel();
+        elevatorAnimator.SetBool("OpenDoor", false);
+        elevatorAnimator.SetBool("CloseDoor", true);
+    }
+
+    public void SetDoorsClosedInCurretLevel()
+    {
+        doorsClosed = true;
+        floorsDict[actualFloor].SetDoorsClosedInCurretLevel();
+        elevatorAnimator.SetBool("OpenDoor", false);
         elevatorAnimator.SetBool("CloseDoor", false);
     }
 

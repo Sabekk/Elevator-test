@@ -26,8 +26,21 @@ public class Floor : MonoBehaviour
         floorAnimator.SetBool("CloseDoor", false);
     }
 
-    public void CloseDoorsUntilMoving()
+    public void CloseDoorsInCurretLevel()
     {
+        floorAnimator.SetBool("CloseDoor", true);
+        floorAnimator.SetBool("OpenDoor", false);
+    }
+
+    public void OpenDoorsInCurretLevel()
+    {
+        floorAnimator.SetBool("OpenDoor", true);
+        floorAnimator.SetBool("CloseDoor", false);
+    }
+
+    public void SetDoorsClosedInCurretLevel()
+    {
+        floorAnimator.SetBool("OpenDoor", false);
         floorAnimator.SetBool("CloseDoor", false);
     }
 
