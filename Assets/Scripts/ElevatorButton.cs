@@ -13,7 +13,6 @@ public class ElevatorButton : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Debug.Log("Test0");
         elevator.GoToNextLevel?.Invoke(id);
     }
 

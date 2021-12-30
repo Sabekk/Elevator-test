@@ -23,6 +23,7 @@ public class Elevator : MonoBehaviour
     public bool isMoving = false;
 
     public Color actualFloorColor;
+    public Color goingToFloorColor;
     public Color standardColor;
 
     public Action<int> GoToNextLevel;
@@ -59,7 +60,6 @@ public class Elevator : MonoBehaviour
         {
             return;
         }
-
         nextFloor = level;
         StopAllCoroutines();
         //elevatorAnimator.Rebind();
@@ -121,6 +121,9 @@ public class Elevator : MonoBehaviour
         bool directionUp;
         float moveSpeed = Time.deltaTime * 3;
 
+        buttons[actualFloor].buttonRenderer.materials[0].color = standardColor;
+        buttons[nextFloor].buttonRenderer.materials[0].color = goingToFloorColor;
+
         if (floorsDict[nextFloor].transform.position.y > transform.position.y + 1)
         {
             directionUp = true;
@@ -149,6 +152,8 @@ public class Elevator : MonoBehaviour
         }
 
         actualFloor = nextFloor;
+
+        buttons[actualFloor].buttonRenderer.materials[0].color = actualFloorColor;
 
         System.Random randomClip = new System.Random();
         int randomInt = randomClip.Next(0, clips.Count);
