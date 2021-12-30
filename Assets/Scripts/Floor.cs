@@ -44,19 +44,19 @@ public class Floor : MonoBehaviour
         floorAnimator.SetBool("CloseDoor", false);
     }
 
-    public void EmergencyOpenElevator()
-    {
-        //floorAnimator.SetBool("OpenDoor", false);
-        floorAnimator.SetBool("CloseDoor", false);
-        floorAnimator.SetBool("OpenDoor", true);
+    //public void EmergencyOpenElevator()
+    //{
+    //    //floorAnimator.SetBool("OpenDoor", false);
+    //    floorAnimator.SetBool("CloseDoor", false);
+    //    floorAnimator.SetBool("OpenDoor", true);
 
-        StartCoroutine(StopEmergency());
-    }
+    //    StartCoroutine(StopEmergency());
+    //}
 
-    IEnumerator StopEmergency()
-    {
-        yield return new WaitForSeconds(3f);
-        floorAnimator.SetBool("EmergencyOpen", false);
-    }
+    //IEnumerator StopEmergency()
+    //{
+    //    yield return new WaitForSeconds(3f);
+    //    floorAnimator.SetBool("EmergencyOpen", false);
+    //}
 
 }
