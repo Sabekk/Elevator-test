@@ -9,18 +9,6 @@ public class CallElevatorButton : MonoBehaviour
 
     private void OnMouseDown()
     {
-        //Floor.OpenFloorDoor?.Invoke(buttonCallId);
-        //Elevator.OpenElevatorDoor?.Invoke();
-        //Elevator.SetActualFloorLevel?.Invoke(buttonCallId);
-        elevator.OpenCurretDoors?.Invoke();
-        //StartCoroutine(CloseDoor());
+        elevator.CallElevatorToCurretFloor(buttonCallId);
     }
-
-    IEnumerator CloseDoor()
-    {
-        yield return new WaitForSeconds(5f);
-        //Floor.CloseFloorDoor?.Invoke(buttonCallId);
-        //Elevator.CloseElevatorDoor?.Invoke();
-    }
-
 }

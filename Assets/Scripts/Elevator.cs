@@ -9,18 +9,23 @@ public class Elevator : MonoBehaviour
 
     public List<Floor> floors;
 
+    public List<AudioClip> clips;
+    public AudioSource audioSource;
+
     Dictionary<int, Floor> floorsDict;
 
     public int actualFloor;
     public int nextFloor;
+    public int calledFloor;
     public bool isReady = true;
     public bool doorsClosed = true;
+    public bool isCalled = false;
+    public bool isMoving = false;
 
     public Color actualFloorColor;
     public Color standardColor;
 
     public Action<int> GoToNextLevel;
-    public Action OpenCurretDoors;
 
     public List<ElevatorButton> buttons = new List<ElevatorButton>();
 
@@ -40,19 +45,16 @@ public class Elevator : MonoBehaviour
     private void Start()
     {
         GoToNextLevel += GoToLevel;
-        OpenCurretDoors += OpenCalledElevator;
     }
 
     private void OnDestroy()
     {
         GoToNextLevel -= GoToLevel;
-        OpenCurretDoors -= OpenCalledElevator;
     }
 
 
     public void GoToLevel(int level)
     {
-        Debug.Log("Test1");
         if ((!isReady) || !CanGoToLevel(level))
         {
             return;
@@ -82,8 +84,6 @@ public class Elevator : MonoBehaviour
 
     IEnumerator ElevatorCycle()
     {
-        Debug.Log("Test2");
-
         if (doorsClosed == false)
         {
             yield return CloseDoors();
@@ -117,9 +117,9 @@ public class Elevator : MonoBehaviour
     {
         isReady = false;
         yield return new WaitForSeconds(1f);
-        bool isMoving = true;
+        isMoving = true;
         bool directionUp;
-        float moveSpeed = Time.deltaTime * 2;
+        float moveSpeed = Time.deltaTime * 3;
 
         if (floorsDict[nextFloor].transform.position.y > transform.position.y + 1)
         {
@@ -146,9 +146,15 @@ public class Elevator : MonoBehaviour
                 isMoving = false;
             }
             yield return null;
-
-            actualFloor = nextFloor;
         }
+
+        actualFloor = nextFloor;
+
+        System.Random randomClip = new System.Random();
+        int randomInt = randomClip.Next(0, clips.Count);
+
+        audioSource.clip = clips[randomInt];
+        audioSource.PlayOneShot(audioSource.clip);
     }
 
     IEnumerator OpenDoors()
@@ -159,19 +165,52 @@ public class Elevator : MonoBehaviour
         OpenDoorsInCurretLevel();
         yield return new WaitForSeconds(2f);
         isReady = true;
-        Debug.Log("Test4");
 
         yield return new WaitForSeconds(3f);
 
         CloseDoorsInCurretLevel();
 
+        yield return new WaitForSeconds(2f);
 
+        if (isCalled == true)
+        {
+            isReady = false;
+            nextFloor = calledFloor;
+            isCalled = false;
+            yield return ElevatorCycle();
+            
+        }
     }
 
-    public void OpenCalledElevator()
+    public void CallElevatorToCurretFloor(int called)
     {
-        StartCoroutine(OpenDoors());
+        calledFloor = called;
+        if(calledFloor == actualFloor && nextFloor == actualFloor && isReady && doorsClosed)
+        {
+            StartCoroutine(OpenDoors());
+        }
+        else
+        { 
+            if (isReady && !isMoving)
+            {
+                isReady = false;
+                if (calledFloor != actualFloor)
+                {
+                    nextFloor = calledFloor;
+                }
+                
+                StartCoroutine(ElevatorCycle());
+            }
+            else
+            {
+                if(nextFloor != calledFloor)
+                {
+                    isCalled = true;
+                }
+            }
+        }
     }
+
 
     public void OpenDoorsInCurretLevel()
     {
